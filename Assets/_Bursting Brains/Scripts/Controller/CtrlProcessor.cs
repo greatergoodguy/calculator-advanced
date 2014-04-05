@@ -18,21 +18,23 @@ public class CtrlProcessor : Ctrl_Base {
 	string currentNumber;
 	string resultNumber;
 
+	int consecutiveEqualsCounter = 0;
+
 	void Awake() {
 		ctrlDebug = GameObject.Find("Debug").GetComponent<CtrlDebug>();
 		ctrlDisplay = GameObject.Find("Display").GetComponent<CtrlDisplay>();
+	}
 
-		operator_bb = Operator.None;
-		currentNumber = "";
-		resultNumber = "";
+	void Start() {
+		Symbol_Clear();
 	}
 
 	public void CurrentNumber_AppendNumber(char numAsChar) {
-		UtilLogger.LogInfo("CtrlProcessor", "CurrentNumber_AppendNumber()");
-		ctrlDebug.LogInfo("AppendNumber: " + numAsChar);
-
 		currentNumber += numAsChar;
 		ctrlDisplay.DisplayString(currentNumber);
+
+		UtilLogger.LogInfo("CtrlProcessor", "CurrentNumber_AppendNumber(): " + currentNumber);
+		ctrlDebug.LogInfo("AppendNumber: " + numAsChar);
 	}
 
 	public void CurrentNumber_AppendDecimal() {
@@ -48,12 +50,41 @@ public class CtrlProcessor : Ctrl_Base {
 		ctrlDebug.LogInfo("Clear");
 
 		currentNumber = "";
-		resultNumber = "";
+		resultNumber = "0";
 		ctrlDisplay.DisplayString("0");
+
+		operator_bb = Operator.None;
+		consecutiveEqualsCounter = 0;
 	}
 
 	public void Symbol_Equals() {
-		UtilLogger.LogInfo("CtrlProcessor", "Symbol_Equals()");
+
+		double currentNumberAsDouble = 0;
+		switch(operator_bb) {
+		case Operator.Plus:
+			double resultNumberAsDouble = double.Parse(resultNumber);
+
+			if(currentNumber.Length != 0) {
+				currentNumberAsDouble = double.Parse(currentNumber);}
+			
+			resultNumberAsDouble += currentNumberAsDouble;
+			resultNumber = resultNumberAsDouble.ToString();
+			
+			ctrlDisplay.DisplayString(resultNumber);
+			break;
+
+		case Operator.None:
+			if(currentNumber.Length != 0) {
+				currentNumberAsDouble = double.Parse(currentNumber);}
+
+			resultNumber = currentNumberAsDouble.ToString();
+			ctrlDisplay.DisplayString(resultNumber);
+			break;
+		}
+
+		consecutiveEqualsCounter++;
+
+		UtilLogger.LogInfo("CtrlProcessor", "currentNumber, resultNumber: " + currentNumber + ", " + resultNumber);
 		ctrlDebug.LogInfo("Equals");
 	}
 
@@ -68,18 +99,27 @@ public class CtrlProcessor : Ctrl_Base {
 			ctrlDisplay.DisplayString("0");}
 		else {
 			ctrlDisplay.DisplayString(currentNumber);}
+
+		operator_bb = Operator.None;
 	}
 	
 	public void Symbol_ReverseSign() {
 		UtilLogger.LogInfo("CtrlProcessor", "Symbol_ReverseSign()");
 		ctrlDebug.LogInfo("ReverseSign");
+
+		operator_bb = Operator.None;
 	}
 
 	public void Symbol_Plus() {
-		UtilLogger.LogInfo("CtrlProcessor", "Symbol_Plus()");
+		UtilLogger.LogInfo("CtrlProcessor", "Symbol_Plus(): " + operator_bb);
 		ctrlDebug.LogInfo("Plus");
 
+		if(consecutiveEqualsCounter == 0) {
+			Symbol_Equals();}
+
 		ClearCurrentNumberString();
+		operator_bb = Operator.Plus;
+		consecutiveEqualsCounter = 0;
 	}
 
 	public void Symbol_Minus() {
@@ -87,6 +127,9 @@ public class CtrlProcessor : Ctrl_Base {
 		ctrlDebug.LogInfo("Minus");
 
 		ClearCurrentNumberString();
+
+		operator_bb = Operator.Minus;
+		consecutiveEqualsCounter = 0;
 	}
 
 	public void Symbol_Multiply() {
@@ -94,6 +137,9 @@ public class CtrlProcessor : Ctrl_Base {
 		ctrlDebug.LogInfo("Multiply");
 
 		ClearCurrentNumberString();
+
+		operator_bb = Operator.Multiply;
+		consecutiveEqualsCounter = 0;
 	}
 
 	public void Symbol_Divide() {
@@ -101,6 +147,9 @@ public class CtrlProcessor : Ctrl_Base {
 		ctrlDebug.LogInfo("Divide");
 
 		ClearCurrentNumberString();
+
+		operator_bb = Operator.Plus;
+		consecutiveEqualsCounter = 0;
 	}
 
 	// ==================

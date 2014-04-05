@@ -60,10 +60,10 @@ public class CtrlProcessor : Ctrl_Base {
 	public void Symbol_Equals() {
 
 		double currentNumberAsDouble = 0;
+		double resultNumberAsDouble = double.Parse(resultNumber);
+
 		switch(operator_bb) {
 		case Operator.Plus:
-			double resultNumberAsDouble = double.Parse(resultNumber);
-
 			if(currentNumber.Length != 0) {
 				currentNumberAsDouble = double.Parse(currentNumber);}
 			
@@ -73,6 +73,36 @@ public class CtrlProcessor : Ctrl_Base {
 			ctrlDisplay.DisplayString(resultNumber);
 			break;
 
+		case Operator.Minus:
+			if(currentNumber.Length != 0) {
+				currentNumberAsDouble = double.Parse(currentNumber);}
+			
+			resultNumberAsDouble -= currentNumberAsDouble;
+			resultNumber = resultNumberAsDouble.ToString();
+			
+			ctrlDisplay.DisplayString(resultNumber);
+			break;
+
+		case Operator.Multiply:
+			if(currentNumber.Length != 0) {
+				currentNumberAsDouble = double.Parse(currentNumber);}
+			
+			resultNumberAsDouble *= currentNumberAsDouble;
+			resultNumber = resultNumberAsDouble.ToString();
+			
+			ctrlDisplay.DisplayString(resultNumber);
+			break;
+
+		case Operator.Divide:
+			if(currentNumber.Length != 0) {
+				currentNumberAsDouble = double.Parse(currentNumber);}
+			
+			resultNumberAsDouble /= currentNumberAsDouble;
+			resultNumber = resultNumberAsDouble.ToString();
+			
+			ctrlDisplay.DisplayString(resultNumber);
+			break;
+			
 		case Operator.None:
 			if(currentNumber.Length != 0) {
 				currentNumberAsDouble = double.Parse(currentNumber);}
@@ -126,8 +156,10 @@ public class CtrlProcessor : Ctrl_Base {
 		UtilLogger.LogInfo("CtrlProcessor", "Symbol_Minus()");
 		ctrlDebug.LogInfo("Minus");
 
-		ClearCurrentNumberString();
+		if(consecutiveEqualsCounter == 0) {
+			Symbol_Equals();}
 
+		ClearCurrentNumberString();
 		operator_bb = Operator.Minus;
 		consecutiveEqualsCounter = 0;
 	}
@@ -136,8 +168,10 @@ public class CtrlProcessor : Ctrl_Base {
 		UtilLogger.LogInfo("CtrlProcessor", "Symbol_Multiply()");
 		ctrlDebug.LogInfo("Multiply");
 
-		ClearCurrentNumberString();
+		if(consecutiveEqualsCounter == 0) {
+			Symbol_Equals();}
 
+		ClearCurrentNumberString();
 		operator_bb = Operator.Multiply;
 		consecutiveEqualsCounter = 0;
 	}
@@ -146,9 +180,11 @@ public class CtrlProcessor : Ctrl_Base {
 		UtilLogger.LogInfo("CtrlProcessor", "Symbol_Divide()");
 		ctrlDebug.LogInfo("Divide");
 
-		ClearCurrentNumberString();
+		if(consecutiveEqualsCounter == 0) {
+			Symbol_Equals();}
 
-		operator_bb = Operator.Plus;
+		ClearCurrentNumberString();
+		operator_bb = Operator.Divide;
 		consecutiveEqualsCounter = 0;
 	}
 

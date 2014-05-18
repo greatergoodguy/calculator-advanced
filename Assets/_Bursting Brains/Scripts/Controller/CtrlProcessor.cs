@@ -18,6 +18,8 @@ public class CtrlProcessor : Ctrl_Base {
 	string currentNumber;
 	string resultNumber;
 
+	bool isResultNumberDisplayed = false;
+
 	int consecutiveEqualsCounter = 0;
 
 	void Awake() {
@@ -32,6 +34,7 @@ public class CtrlProcessor : Ctrl_Base {
 	public void CurrentNumber_AppendNumber(char numAsChar) {
 		currentNumber += numAsChar;
 		ctrlDisplay.DisplayString(currentNumber);
+		isResultNumberDisplayed = false;
 
 		UtilLogger.LogInfo("CtrlProcessor", "CurrentNumber_AppendNumber(): " + currentNumber);
 		ctrlDebug.LogInfo("AppendNumber: " + numAsChar);
@@ -51,7 +54,8 @@ public class CtrlProcessor : Ctrl_Base {
 
 		currentNumber = "";
 		resultNumber = "0";
-		ctrlDisplay.DisplayString("0");
+		ctrlDisplay.DisplayString(resultNumber);
+		isResultNumberDisplayed = true;
 
 		operator_bb = Operator.None;
 		consecutiveEqualsCounter = 0;
@@ -71,6 +75,7 @@ public class CtrlProcessor : Ctrl_Base {
 			resultNumber = resultNumberAsDouble.ToString();
 			
 			ctrlDisplay.DisplayString(resultNumber);
+			isResultNumberDisplayed = true;
 			break;
 
 		case Operator.Minus:
@@ -81,6 +86,7 @@ public class CtrlProcessor : Ctrl_Base {
 			resultNumber = resultNumberAsDouble.ToString();
 			
 			ctrlDisplay.DisplayString(resultNumber);
+			isResultNumberDisplayed = true;
 			break;
 
 		case Operator.Multiply:
@@ -91,6 +97,7 @@ public class CtrlProcessor : Ctrl_Base {
 			resultNumber = resultNumberAsDouble.ToString();
 			
 			ctrlDisplay.DisplayString(resultNumber);
+			isResultNumberDisplayed = true;
 			break;
 
 		case Operator.Divide:
@@ -101,6 +108,7 @@ public class CtrlProcessor : Ctrl_Base {
 			resultNumber = resultNumberAsDouble.ToString();
 			
 			ctrlDisplay.DisplayString(resultNumber);
+			isResultNumberDisplayed = true;
 			break;
 			
 		case Operator.None:
@@ -109,6 +117,7 @@ public class CtrlProcessor : Ctrl_Base {
 
 			resultNumber = currentNumberAsDouble.ToString();
 			ctrlDisplay.DisplayString(resultNumber);
+			isResultNumberDisplayed = true;
 			break;
 		}
 
@@ -126,9 +135,12 @@ public class CtrlProcessor : Ctrl_Base {
 			currentNumber = currentNumber.Remove(currentNumber.Length - 1);}
 
 		if(currentNumber.Length == 0) {
-			ctrlDisplay.DisplayString("0");}
+			resultNumber = "0";
+			ctrlDisplay.DisplayString(resultNumber);
+			isResultNumberDisplayed = true;}
 		else {
-			ctrlDisplay.DisplayString(currentNumber);}
+			ctrlDisplay.DisplayString(currentNumber);
+			isResultNumberDisplayed = false;}
 
 		operator_bb = Operator.None;
 	}
@@ -137,7 +149,22 @@ public class CtrlProcessor : Ctrl_Base {
 		UtilLogger.LogInfo("CtrlProcessor", "Symbol_ReverseSign()");
 		ctrlDebug.LogInfo("ReverseSign");
 
-		operator_bb = Operator.None;
+		if(isResultNumberDisplayed) {
+			double resultNumberAsDouble = double.Parse(resultNumber) * -1;
+			resultNumber = resultNumberAsDouble.ToString();
+			ctrlDisplay.DisplayString(resultNumber);
+			isResultNumberDisplayed = true;
+
+		}
+		else {
+			double currentNumberAsDouble = 0;
+			if(currentNumber.Length != 0) {
+				currentNumberAsDouble = double.Parse(currentNumber) * -1;
+				currentNumber = currentNumberAsDouble.ToString();
+				ctrlDisplay.DisplayString(currentNumber);
+				isResultNumberDisplayed = false;
+			}
+		}
 	}
 
 	public void Symbol_Plus() {

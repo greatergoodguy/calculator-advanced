@@ -5,14 +5,8 @@ public class Phase1 : Phase_Base {
 
 	protected CtrlProcessor ctrlProcessor;
 
-	protected string numberAsString = "0";
-
 	public Phase1 (CtrlProcessor ctrlProcessor) {
 		this.ctrlProcessor = ctrlProcessor;
-	}
-
-	public string getNumberAsString() {
-		return numberAsString;
 	}
 
 	public void reset() {
@@ -79,7 +73,7 @@ public class Phase1 : Phase_Base {
 		else {
 			reset();}
 
-		if(numberAsString == "-") {
+		if(numberAsString == "-" || numberAsString == "-0") {
 			reset();}
 
 		ctrlProcessor.DisplayString(numberAsString);

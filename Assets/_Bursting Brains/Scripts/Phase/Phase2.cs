@@ -21,12 +21,14 @@ public class Phase2 : Phase_Base {
 	}
 
 	public override void Digit(char digit) {
-		Phase_Base phase3 = ctrlProcessor.switchTo_Phase3();
+		Phase3 phase3 = ctrlProcessor.switchTo_Phase3();
+		phase3.reset();
 		phase3.Digit(digit);
 	}
 
 	public override void Decimal() {
-		Phase_Base phase3 = ctrlProcessor.switchTo_Phase3();
+		Phase3 phase3 = ctrlProcessor.switchTo_Phase3();
+		phase3.reset();
 		phase3.Decimal();
 	}
 

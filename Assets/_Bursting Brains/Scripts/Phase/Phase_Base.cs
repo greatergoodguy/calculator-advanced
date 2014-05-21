@@ -3,6 +3,12 @@ using System.Collections;
 
 public class Phase_Base {
 
+	protected string numberAsString = "0";
+
+	public string getNumberAsString() {
+		return numberAsString;
+	}
+
 	public virtual void Clear(){}
 	public virtual void Digit(char digit){}
 	public virtual void Decimal(){}

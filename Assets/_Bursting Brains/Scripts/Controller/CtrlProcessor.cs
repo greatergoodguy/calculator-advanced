@@ -39,7 +39,6 @@ public class CtrlProcessor : Ctrl_Base {
 
 	public Phase3 switchTo_Phase3() {
 		activePhase = phase3;
-		phase3.reset();
 		return phase3;
 	}
 

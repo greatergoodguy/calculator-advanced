@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class CtrlNumberPad : Ctrl_Base {
@@ -12,34 +12,46 @@ public class CtrlNumberPad : Ctrl_Base {
 	//=================
 	// Numbers
 	//=================
-	public void ButtonPressed_0() 		{Display_AppendNumber('0');}
-	public void ButtonPressed_1() 		{Display_AppendNumber('1');}
-	public void ButtonPressed_2() 		{Display_AppendNumber('2');}
-	public void ButtonPressed_3() 		{Display_AppendNumber('3');}
-	public void ButtonPressed_4() 		{Display_AppendNumber('4');}
-	public void ButtonPressed_5() 		{Display_AppendNumber('5');}
-	public void ButtonPressed_6() 		{Display_AppendNumber('6');}
-	public void ButtonPressed_7() 		{Display_AppendNumber('7');}
-	public void ButtonPressed_8() 		{Display_AppendNumber('8');}
-	public void ButtonPressed_9() 		{Display_AppendNumber('9');}
+	public void ButtonPressed_0() 		{Digit('0');}
+	public void ButtonPressed_1() 		{Digit('1');}
+	public void ButtonPressed_2() 		{Digit('2');}
+	public void ButtonPressed_3() 		{Digit('3');}
+	public void ButtonPressed_4() 		{Digit('4');}
+	public void ButtonPressed_5() 		{Digit('5');}
+	public void ButtonPressed_6() 		{Digit('6');}
+	public void ButtonPressed_7() 		{Digit('7');}
+	public void ButtonPressed_8() 		{Digit('8');}
+	public void ButtonPressed_9() 		{Digit('9');}
 	
-	public void Display_AppendNumber(char numAsChar) {
-		ctrlProcessor.CurrentNumber_AppendNumber(numAsChar);
+	private void Digit(char digit) {
+		ctrlProcessor.Digit(digit);
 	}
 
 	public void ButtonPressed_Decimal() {
-		ctrlProcessor.CurrentNumber_AppendDecimal();
+		ctrlProcessor.Decimal();
 	}
 
 	//=================
 	// Symbols
 	//=================
-	public void Symbol_Clear() {		ctrlProcessor.Symbol_Clear();}
-	public void Symbol_Equals() {		ctrlProcessor.Symbol_Equals();}
-	public void Symbol_Backspace() {	ctrlProcessor.Symbol_Backspace();}
-	public void Symbol_ReverseSign() {	ctrlProcessor.Symbol_ReverseSign();}
-	public void Symbol_Plus() {			ctrlProcessor.Symbol_Plus();}
-	public void Symbol_Minus() {		ctrlProcessor.Symbol_Minus();}
-	public void Symbol_Multiply() {		ctrlProcessor.Symbol_Multiply();}
-	public void Symbol_Divide() {		ctrlProcessor.Symbol_Divide();}
+	public void Symbol_Clear() {		ctrlProcessor.Clear();}
+	public void Symbol_Equals() {		ctrlProcessor.Equals();}
+	public void Symbol_Backspace() {	ctrlProcessor.Backspace();}
+	public void Symbol_ReverseSign() {	ctrlProcessor.Reverse();}
+	public void Symbol_Plus() {			ctrlProcessor.Plus();}
+	public void Symbol_Minus() {		ctrlProcessor.Minus();}
+	public void Symbol_Multiply() {		ctrlProcessor.Multiply();}
+	public void Symbol_Divide() {		ctrlProcessor.Divide();}
+
+	public void Clear(){}
+	public void Digit(){}
+	public void Decimal(){}
+	public void Equals(){}
+	
+	public void Reverse(){}
+	public void Plus(){}
+	public void Minus(){}
+	public void Multiply(){}
+	public void Divide(){}
+	public void Backspace(){}
 }

@@ -11,15 +11,23 @@ public class Phase2 : Phase_Base {
 		this.ctrlProcessor = ctrlProcessor;
 	}
 
+	public Operator_BB getOperator() {
+		return operator_bb;
+	}
+
 	public override void Clear() {
 		Phase_Base phase1 = ctrlProcessor.switchTo_Phase1();
 		phase1.Clear();
 	}
 
 	public override void Digit(char digit) {
+		Phase_Base phase3 = ctrlProcessor.switchTo_Phase3();
+		phase3.Digit(digit);
 	}
 
 	public override void Decimal() {
+		Phase_Base phase3 = ctrlProcessor.switchTo_Phase3();
+		phase3.Decimal();
 	}
 
 	

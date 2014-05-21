@@ -3,16 +3,28 @@ using System.Collections;
 
 public class Phase1 : Phase_Base {
 
-	CtrlProcessor ctrlProcessor;
+	protected CtrlProcessor ctrlProcessor;
 
-	string numberAsString = "0";
+	protected string numberAsString = "0";
 
 	public Phase1 (CtrlProcessor ctrlProcessor) {
 		this.ctrlProcessor = ctrlProcessor;
 	}
 
-	public override void Clear() {
+	public string getNumberAsString() {
+		return numberAsString;
+	}
+
+	public void reset() {
 		numberAsString = "0";
+	}
+
+	public void overrideNumberAsString(string numberAsString) {
+		this.numberAsString = numberAsString;
+	}
+
+	public override void Clear() {
+		reset();
 		ctrlProcessor.DisplayString(numberAsString);
 	}
 
@@ -65,10 +77,10 @@ public class Phase1 : Phase_Base {
 		if(numberAsString.Length > 1) {
 			numberAsString = numberAsString.Remove(numberAsString.Length - 1);}
 		else {
-			numberAsString = "0";}
+			reset();}
 
 		if(numberAsString == "-") {
-			numberAsString = "0";}
+			reset();}
 
 		ctrlProcessor.DisplayString(numberAsString);
 	}

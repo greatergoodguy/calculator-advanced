@@ -5,8 +5,10 @@ public class CtrlProcessor : Ctrl_Base {
 	
 	CtrlDisplay ctrlDisplay;
 
-	Phase_Base phase1;
-	Phase_Base phase2;
+	Phase1 phase1;
+	Phase2 phase2;
+	Phase3 phase3;
+	Phase4 phase4;
 
 	Phase_Base activePhase;
 
@@ -16,6 +18,8 @@ public class CtrlProcessor : Ctrl_Base {
 
 		phase1 = new Phase1(this);
 		phase2 = new Phase2(this);
+		phase3 = new Phase3(this);
+		phase4 = new Phase4(this);
 
 		activePhase = phase1;
 	}
@@ -23,14 +27,45 @@ public class CtrlProcessor : Ctrl_Base {
 	// ======================
 	// Phase Switch Methods
 	// ======================
-	public Phase_Base switchTo_Phase1() {
+	public Phase1 switchTo_Phase1() {
 		activePhase = phase1;
-		return activePhase;
+		return phase1;
 	}
 
-	public Phase_Base switchTo_Phase2() {
+	public Phase2 switchTo_Phase2() {
 		activePhase = phase2;
-		return activePhase;
+		return phase2;
+	}
+
+	public Phase3 switchTo_Phase3() {
+		activePhase = phase3;
+		phase3.reset();
+		return phase3;
+	}
+
+	public Phase4 switchTo_Phase4() {
+		activePhase = phase4;
+		return phase4;
+	}
+
+	public void overrideP1withP4() {
+		string numberAsString = phase4.getNumberAsString();
+		phase1.overrideNumberAsString(numberAsString);
+	}
+
+	// ======================
+	// Getter Methods
+	// ======================
+	public string getPhase1_Number() {
+		return phase1.getNumberAsString();
+	}
+
+	public Operator_BB getPhase2_Operator() {
+		return phase2.getOperator();
+	}
+
+	public string getPhase3_Number() {
+		return phase3.getNumberAsString();
 	}
 
 	// ======================

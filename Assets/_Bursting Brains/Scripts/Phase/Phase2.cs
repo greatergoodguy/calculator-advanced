@@ -40,21 +40,28 @@ public class Phase2 : Phase_Base {
 
 	public override void Plus() {
 		operator_bb = Operator_BB.Plus;
+		ctrlProcessor.DisplayOperator(operator_bb);
 	}
 
 	public override void Minus() {
 		operator_bb = Operator_BB.Minus;
+		ctrlProcessor.DisplayOperator(operator_bb);
 	}
 
 	public override void Divide() {
 		operator_bb = Operator_BB.Divide;
+		ctrlProcessor.DisplayOperator(operator_bb);
 	}
 
 	public override void Multiply() {
 		operator_bb = Operator_BB.Multiply;
+		ctrlProcessor.DisplayOperator(operator_bb);
 	}
 
 	public override void Backspace() {
+		operator_bb = Operator_BB.None;
+		ctrlProcessor.DisplayOperator(operator_bb);
+
 		Phase_Base phase1 = ctrlProcessor.switchTo_Phase1();
 		phase1.Backspace();
 	}

@@ -28,6 +28,8 @@ public class CtrlProcessor : Ctrl_Base {
 	// Phase Switch Methods
 	// ======================
 	public Phase1 switchTo_Phase1() {
+		DisplayOperator(Operator_BB.None);
+
 		activePhase = phase1;
 		return phase1;
 	}
@@ -38,6 +40,8 @@ public class CtrlProcessor : Ctrl_Base {
 	}
 
 	public Phase3 switchTo_Phase3() {
+		DisplayShift();
+
 		activePhase = phase3;
 		return phase3;
 	}
@@ -72,6 +76,18 @@ public class CtrlProcessor : Ctrl_Base {
 	// ======================
 	public void DisplayString(string text) {
 		ctrlDisplay.DisplayString(text);
+	}
+
+	public void DisplayOperator(Operator_BB operator_bb) {
+		ctrlDisplay.DisplayOperator(operator_bb);
+	}
+
+	public void DisplayShift() {
+		ctrlDisplay.Shift();
+	}
+
+	public void DisplayString_Phase4Equals(string text) {
+		ctrlDisplay.DisplayString_Phase4Equals(text);
 	}
 
 	// ======================

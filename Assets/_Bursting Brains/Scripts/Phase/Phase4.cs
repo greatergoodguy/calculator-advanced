@@ -60,9 +60,11 @@ public class Phase4 : Phase_Base {
 
 		}
 		numberAsString = result.ToString();
-		ctrlProcessor.DisplayString(numberAsString);
+
+		ctrlProcessor.DisplayString_Phase4Equals(numberAsString);
 
 		ctrlProcessor.overrideP1withP4();
+
 	}
 
 	public override void Reverse() {
